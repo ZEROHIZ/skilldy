@@ -378,7 +378,21 @@ function cleanJson(text) {
     let allData = [];
     let listKey = "";
 
-    for (const obj of objects) {
+    // 1. 查找 ack 标记。通常搜索会有 5 个左右的字典块，ack 在第 2 个 ({"ack":-1})。
+    // 我们需要排除 ack 及其之前的所有块。
+    let ackIdx = -1;
+    for (let i = 0; i < objects.length; i++) {
+        const obj = objects[i];
+        if (obj && typeof obj === 'object' && obj.ack === -1) {
+            ackIdx = i;
+            break;
+        }
+    }
+
+    // 2. 如果存在 ack，则只处理 ack 之后的块；否则处理全部
+    const targetObjects = ackIdx !== -1 ? objects.slice(ackIdx + 1) : objects;
+
+    for (const obj of targetObjects) {
       // 识别列表键名：data (搜索), aweme_list (视频列表), comments (评论列表)
       const currentKey = obj.data ? "data" : (obj.aweme_list ? "aweme_list" : (obj.comments ? "comments" : ""));
       
@@ -398,7 +412,7 @@ function cleanJson(text) {
       base[listKey] = allData;
       return base;
     }
-    return objects[0]; // 实在没匹配到业务字段，返回第一个对象
+    return targetObjects.length > 0 ? targetObjects[0] : (objects[0] || null);
   }
 }
 
