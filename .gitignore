@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
+venv/
+.venv/
+env/
+.env
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Test / Cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs & temp 
+*.log
+*.json
+
+# specific files that user had
+search_res.json
+debug.log
+server.log

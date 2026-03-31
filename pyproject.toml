@@ -1,0 +1,9 @@
+[project]
+name = "douyin-skills"
+version = "0.1.0"
+description = "抖音自动化 Skills"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "websockets>=12.0",
+]
