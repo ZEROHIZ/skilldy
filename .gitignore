@@ -23,7 +23,7 @@ htmlcov/
 
 # Logs & temp 
 *.log
-*.json
+
 
 # specific files that user had
 search_res.json

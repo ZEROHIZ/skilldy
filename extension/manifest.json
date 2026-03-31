@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "DY Bridge Extension",
+  "version": "1.0.0",
+  "description": "抖音 API 自动化拦截与桥接工具",
+  "permissions": [
+    "tabs",
+    "scripting",
+    "cookies",
+    "storage",
+    "alarms",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://www.douyin.com/*",
+    "https://*.douyin.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.douyin.com/*", "https://*.douyin.com/*"],
+      "js": ["stealth.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.douyin.com/*", "https://*.douyin.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "world": "ISOLATED"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["stealth.js"],
+      "matches": ["https://www.douyin.com/*", "https://*.douyin.com/*"]
+    }
+  ]
+}
